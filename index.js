@@ -23,7 +23,7 @@ app.get("/tasks", (req, res)=>{
 app.get("/tasks/:id", (req, res) => {
     const task = tasks.find((t)=> t.id === parseInt(req.params.id));
     if (!task) return res.status(404).json({message: "task not found"});
-    res.json(tasks)
+    res.json(task)
 })
 
 app.post("/tasks", (req, res) => {

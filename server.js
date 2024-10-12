@@ -4,6 +4,8 @@ import axios from "axios";
 
 const app = express();
 const API_URL = "http://localhost:4000";
+//const API_WEATHER = 
+//const API_KEY_WEATHER = "fba8b37539964bc6a58113203241110"
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -47,25 +49,19 @@ app.get("/edit/:id", async (req, res) => {
         console.log(response.data);
         res.redirect("/");
     } catch (error) {
-        console.error(error); 
         res.status(500).json({ message: "Error creating task" });
     }
 });
 
 app.post("/api/tasks/:id", async (req, res) => {
-    console.log("called");
-    try {
-      const response = await axios.patch(
-        `${API_URL}/tasks/${req.params.id}`,
-        req.body
-      );
+  try {
+      const response = await axios.patch(`${API_URL}/tasks/${req.params.id}`, req.body);
       console.log(response.data);
       res.redirect("/");
-
-    } catch (error) {
-      res.status(500).json({ message: "Error updating post" });
-    }
-  });
+  } catch (error) {
+      res.status(500).json({ message: "Error updating task" });
+  }
+});
 
 app.get("/api/tasks/delete/:id", async (req, res) => {
     try {

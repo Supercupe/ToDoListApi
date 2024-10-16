@@ -4,8 +4,8 @@ import axios from "axios";
 
 const app = express();
 const API_URL = "http://localhost:4000";
-//const API_WEATHER = 
-//const API_KEY_WEATHER = "fba8b37539964bc6a58113203241110"
+const API_KEY_WEATHER = ""
+
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -15,14 +15,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
-    try {
-        const response = await axios.get(`${API_URL}/tasks`);
-        console.log(response.data);  
-        res.render("index.ejs", { tasks: response.data }); 
-    } catch (error) {
-        console.error(error); 
-        res.status(500).json({ message: "Error fetching tasks" });
-    }
+  const locationQuery = req.query.location || "Prague";
+  try {
+      const response = await axios.get(`${API_URL}/tasks`);
+      const response_1 = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${API_KEY_WEATHER}&q=${locationQuery}`);
+      console.log(response.data);  
+      res.render("index.ejs", { 
+        tasks: response.data,
+        location: response_1.data.location.name,
+        country: response_1.data.location.country,
+        temp: response_1.data.current.temp_c,
+        wind: response_1.data.current.wind_kph,
+      }); 
+  } catch (error) {
+      console.error(error); 
+      res.status(500).json({ message: "Error fetching tasks" });
+  }
 });
 
 app.get("/new", (req, res) => {
@@ -32,7 +40,6 @@ app.get("/new", (req, res) => {
 app.get("/edit/:id", async (req, res) => {
     try {
       const response = await axios.get(`${API_URL}/tasks/${req.params.id}`);
-      console.log(response.data);
       res.render("modify.ejs", {
         heading: "Edit Task",
         submit: "Update Task",

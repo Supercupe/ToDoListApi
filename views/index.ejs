@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To Do List</title>
   <link rel="stylesheet" href="/styles/main.css">
-  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 </head>
 
 <body>
@@ -15,15 +14,43 @@
     <a id="newTaskBtn" href="/new">New Task</a>
     <ul id="tasksList">
       <% tasks.forEach(task=> { %>
-        <li>
+        <li class = "tasks">
           <p>
             <%=task.id + ". " + task.content%>
           </p>
+
           <a class="edit" href="/edit/<%= task.id %>">Edit</a>
           <a class="delete" href="/api/tasks/delete/<%= task.id %>">Delete</a>
         </li>
         <% }); %>
     </ul>
+    <ul>
+      <li class = "weather_header">Weather</li>
+      <li class="weather">
+        Location:
+        <span class="weather_content">
+          <input type="text" id="location-input" value="<%= location %>" />
+          <button onclick="updateLocation()">Update</button>
+        </span>
+      </li>
+      <li class = "weather">Country:
+        <span class = "weather_content"><%= country %></span>
+      </li>
+      <li class = "weather">Temperature: 
+        <span class = "weather_content"><%= temp %> °C</span>
+      </li>
+      <li class = "weather">Wind: 
+        <span class="weather_content"><%= wind %> km/h</span>
+
+      </li>
+    </ul>
+    <script>
+      function updateLocation() {
+        const newLocation = document.getElementById('location-input').value;
+    
+        window.location.href = `/?location=${encodeURIComponent(newLocation)}`;
+      }
+    </script>
   </div>
 
 </body>

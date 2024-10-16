@@ -15,7 +15,6 @@
     </h1>
 
     <% if (locals.task) { %>
-      <!-- Form for Editing Existing Task -->
       <form id="editForm" method="post" action="/api/tasks/<%=task.id%>">
         <textarea name="content" rows="3" required><%=task.content %></textarea>
         <button class="full-width" type="submit">
@@ -23,7 +22,6 @@
         </button>
       </form>
     <% } else { %>
-      <!-- Form for Creating a New Task -->
       <form id="newTaskForm" method="post" action="/api/tasks">
         <textarea name="content" placeholder="Enter new task content" required rows="3"></textarea>
         <button class="full-width" type="submit">

@@ -1,7 +1,7 @@
 # To-Do List and Weather API
 
 ## Overview
-This project is designed to practice API handling by integrating a To-Do list application with a real external weather API. It allows users to manage their tasks effectively while also providing current weather information based on user input.
+This project is designed to practice API handling by creating API for a To-Do list application infused with a real external weather API. It allows users to manage their tasks effectively while also providing current weather information based on user input.
 
 ## Features
 - **To-Do List Functionality**:
